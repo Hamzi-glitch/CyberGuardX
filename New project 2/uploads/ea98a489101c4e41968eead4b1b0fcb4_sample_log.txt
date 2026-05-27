@@ -1,6 +1,0 @@
-May 11 03:12:01 server sshd[1234]: Failed password for admin from 45.90.12.8 port 55121 ssh2
-May 11 03:12:05 server sshd[1234]: Failed password for admin from 45.90.12.8 port 55122 ssh2
-May 11 03:12:09 server sshd[1234]: Failed password for admin from 45.90.12.8 port 55123 ssh2
-May 11 03:13:22 server sshd[1234]: Accepted password for admin from 45.90.12.8 port 55124 ssh2
-192.168.1.80 GET /index.php?page=../../../../etc/passwd
-192.168.1.90 GET /login.php?id=' OR '1'='1

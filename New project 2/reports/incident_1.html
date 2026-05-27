@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CyberGuardX Incident Report</title>
+    
+        <link rel="stylesheet" href="../static/style.css">
+    
+</head>
+<body class="report-body">
+    <main class="shell report-shell">
+        <section class="topbar">
+            <div>
+                <p class="eyebrow">CyberGuardX Incident Report</p>
+                <h1>sample_log.txt</h1>
+                <p class="muted">Incident #1 · Uploaded 2026-05-11 14:51:56 UTC</p>
+            </div>
+            
+        </section>
+
+        <section class="summary-band">
+            <div>
+                <span>Total Findings</span>
+                <strong>7</strong>
+            </div>
+            <div>
+                <span>Highest Risk</span>
+                <strong class="risk-text high">High</strong>
+            </div>
+            
+                <div>
+                    <span>Low</span>
+                    <strong>4</strong>
+                </div>
+            
+                <div>
+                    <span>Medium</span>
+                    <strong>0</strong>
+                </div>
+            
+                <div>
+                    <span>High</span>
+                    <strong>3</strong>
+                </div>
+            
+                <div>
+                    <span>Critical</span>
+                    <strong>0</strong>
+                </div>
+            
+        </section>
+
+        <section class="section-block">
+            <div class="section-heading">
+                <h2>Executive Summary</h2>
+            </div>
+            
+                <p>
+                    CyberGuardX reviewed the uploaded log and identified 7
+                    security-relevant finding(s). The highest observed risk level is
+                    <strong>High</strong>.
+                </p>
+            
+        </section>
+
+        <section class="section-block">
+            <div class="section-heading">
+                <h2>Findings</h2>
+            </div>
+            
+                
+                    <article class="finding report-finding">
+                        <div class="finding-head">
+                            <div>
+                                <span class="badge high">High</span>
+                                <h3>Directory traversal or LFI indicator</h3>
+                            </div>
+                            <strong>88</strong>
+                        </div>
+                        <p>The request includes path traversal or local file inclusion indicators. This suggests an attempt to read files outside the intended web directory.</p>
+                        <p class="muted">Request content referenced path traversal or sensitive local file patterns.</p>
+                        <dl class="details">
+                            <div><dt>Source IP</dt><dd>192.168.1.80</dd></div>
+                            <div><dt>Username</dt><dd>Unknown</dd></div>
+                            <div><dt>Line</dt><dd>5</dd></div>
+                            <div><dt>Tactic</dt><dd>File disclosure attempt</dd></div>
+                        </dl>
+                        <h4>Evidence</h4>
+                        <pre>192.168.1.80 GET /index.php?page=../../../../etc/passwd</pre>
+                        <h4>Recommended Actions</h4>
+                        <ul>
+                            
+                                <li>Confirm the requested path was not served.</li>
+                            
+                                <li>Review file access controls.</li>
+                            
+                                <li>Normalize and validate user-supplied paths.</li>
+                            
+                        </ul>
+                    </article>
+                
+                    <article class="finding report-finding">
+                        <div class="finding-head">
+                            <div>
+                                <span class="badge high">High</span>
+                                <h3>Failed logins followed by success</h3>
+                            </div>
+                            <strong>84</strong>
+                        </div>
+                        <p>A successful login from 45.90.12.8 occurred after 3 failed attempt(s). This can indicate that an attacker guessed or obtained valid credentials.</p>
+                        <p class="muted">Found 3 failed login attempt(s) before a success on line 4.</p>
+                        <dl class="details">
+                            <div><dt>Source IP</dt><dd>45.90.12.8</dd></div>
+                            <div><dt>Username</dt><dd>admin</dd></div>
+                            <div><dt>Line</dt><dd>4</dd></div>
+                            <div><dt>Tactic</dt><dd>Possible account compromise</dd></div>
+                        </dl>
+                        <h4>Evidence</h4>
+                        <pre>May 11 03:13:22 server sshd[1234]: Accepted password for admin from 45.90.12.8 port 55124 ssh2</pre>
+                        <h4>Recommended Actions</h4>
+                        <ul>
+                            
+                                <li>Verify the login with the account owner.</li>
+                            
+                                <li>Reset credentials if unauthorized.</li>
+                            
+                                <li>Review session activity after login.</li>
+                            
+                        </ul>
+                    </article>
+                
+                    <article class="finding report-finding">
+                        <div class="finding-head">
+                            <div>
+                                <span class="badge high">High</span>
+                                <h3>SQL injection indicator</h3>
+                            </div>
+                            <strong>82</strong>
+                        </div>
+                        <p>The log line contains characters or keywords often used in SQL injection attempts. This suggests someone may have tried to manipulate a database-backed request.</p>
+                        <p class="muted">Request content matched SQL injection signatures commonly seen in web access logs.</p>
+                        <dl class="details">
+                            <div><dt>Source IP</dt><dd>192.168.1.90</dd></div>
+                            <div><dt>Username</dt><dd>Unknown</dd></div>
+                            <div><dt>Line</dt><dd>6</dd></div>
+                            <div><dt>Tactic</dt><dd>Web application attack</dd></div>
+                        </dl>
+                        <h4>Evidence</h4>
+                        <pre>192.168.1.90 GET /login.php?id=&#39; OR &#39;1&#39;=&#39;1</pre>
+                        <h4>Recommended Actions</h4>
+                        <ul>
+                            
+                                <li>Check whether the request reached application code.</li>
+                            
+                                <li>Confirm parameterized queries are used.</li>
+                            
+                                <li>Review WAF and application logs.</li>
+                            
+                        </ul>
+                    </article>
+                
+                    <article class="finding report-finding">
+                        <div class="finding-head">
+                            <div>
+                                <span class="badge low">Low</span>
+                                <h3>Failed login attempt</h3>
+                            </div>
+                            <strong>20</strong>
+                        </div>
+                        <p>A login attempt from 45.90.12.8 failed on line 1. A single failure can be normal, but repeated failures may indicate password guessing.</p>
+                        <p class="muted">Authentication failure found and retained for correlation.</p>
+                        <dl class="details">
+                            <div><dt>Source IP</dt><dd>45.90.12.8</dd></div>
+                            <div><dt>Username</dt><dd>admin</dd></div>
+                            <div><dt>Line</dt><dd>1</dd></div>
+                            <div><dt>Tactic</dt><dd>Initial access probing</dd></div>
+                        </dl>
+                        <h4>Evidence</h4>
+                        <pre>May 11 03:12:01 server sshd[1234]: Failed password for admin from 45.90.12.8 port 55121 ssh2</pre>
+                        <h4>Recommended Actions</h4>
+                        <ul>
+                            
+                                <li>Review the account involved.</li>
+                            
+                                <li>Watch for repeated failures from the same source.</li>
+                            
+                        </ul>
+                    </article>
+                
+                    <article class="finding report-finding">
+                        <div class="finding-head">
+                            <div>
+                                <span class="badge low">Low</span>
+                                <h3>Failed login attempt</h3>
+                            </div>
+                            <strong>20</strong>
+                        </div>
+                        <p>A login attempt from 45.90.12.8 failed on line 2. A single failure can be normal, but repeated failures may indicate password guessing.</p>
+                        <p class="muted">Authentication failure found and retained for correlation.</p>
+                        <dl class="details">
+                            <div><dt>Source IP</dt><dd>45.90.12.8</dd></div>
+                            <div><dt>Username</dt><dd>admin</dd></div>
+                            <div><dt>Line</dt><dd>2</dd></div>
+                            <div><dt>Tactic</dt><dd>Initial access probing</dd></div>
+                        </dl>
+                        <h4>Evidence</h4>
+                        <pre>May 11 03:12:05 server sshd[1234]: Failed password for admin from 45.90.12.8 port 55122 ssh2</pre>
+                        <h4>Recommended Actions</h4>
+                        <ul>
+                            
+                                <li>Review the account involved.</li>
+                            
+                                <li>Watch for repeated failures from the same source.</li>
+                            
+                        </ul>
+                    </article>
+                
+                    <article class="finding report-finding">
+                        <div class="finding-head">
+                            <div>
+                                <span class="badge low">Low</span>
+                                <h3>Failed login attempt</h3>
+                            </div>
+                            <strong>20</strong>
+                        </div>
+                        <p>A login attempt from 45.90.12.8 failed on line 3. A single failure can be normal, but repeated failures may indicate password guessing.</p>
+                        <p class="muted">Authentication failure found and retained for correlation.</p>
+                        <dl class="details">
+                            <div><dt>Source IP</dt><dd>45.90.12.8</dd></div>
+                            <div><dt>Username</dt><dd>admin</dd></div>
+                            <div><dt>Line</dt><dd>3</dd></div>
+                            <div><dt>Tactic</dt><dd>Initial access probing</dd></div>
+                        </dl>
+                        <h4>Evidence</h4>
+                        <pre>May 11 03:12:09 server sshd[1234]: Failed password for admin from 45.90.12.8 port 55123 ssh2</pre>
+                        <h4>Recommended Actions</h4>
+                        <ul>
+                            
+                                <li>Review the account involved.</li>
+                            
+                                <li>Watch for repeated failures from the same source.</li>
+                            
+                        </ul>
+                    </article>
+                
+                    <article class="finding report-finding">
+                        <div class="finding-head">
+                            <div>
+                                <span class="badge low">Low</span>
+                                <h3>Successful login</h3>
+                            </div>
+                            <strong>10</strong>
+                        </div>
+                        <p>A successful login from 45.90.12.8 was observed on line 4. This is tracked because it can become suspicious when it follows earlier failures.</p>
+                        <p class="muted">Successful authentication event retained for correlation with earlier failures.</p>
+                        <dl class="details">
+                            <div><dt>Source IP</dt><dd>45.90.12.8</dd></div>
+                            <div><dt>Username</dt><dd>admin</dd></div>
+                            <div><dt>Line</dt><dd>4</dd></div>
+                            <div><dt>Tactic</dt><dd>Authentication activity</dd></div>
+                        </dl>
+                        <h4>Evidence</h4>
+                        <pre>May 11 03:13:22 server sshd[1234]: Accepted password for admin from 45.90.12.8 port 55124 ssh2</pre>
+                        <h4>Recommended Actions</h4>
+                        <ul>
+                            
+                                <li>Confirm the login is expected.</li>
+                            
+                                <li>Compare the source IP with normal user behavior.</li>
+                            
+                        </ul>
+                    </article>
+                
+            
+        </section>
+    </main>
+</body>
+</html>

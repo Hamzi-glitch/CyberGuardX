@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cybersecurity Agent</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+
+<body>
+
+    <header>
+
+        <h1>🛡️ Intelligent Cybersecurity Agent</h1>
+
+        <p>
+            System monitoring and anomaly detection
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <section class="cards">
+
+            <div class="card">
+
+                <h2>Total Records</h2>
+
+                <p id="total-records">
+                    Loading...
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>Normal</h2>
+
+                <p id="normal-count">
+                    Loading...
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>Anomalies</h2>
+
+                <p id="anomaly-count">
+                    Loading...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section>
+
+            <h2>Recent Process Activity</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Time</th>
+                        <th>PID</th>
+                        <th>Process</th>
+                        <th>CPU</th>
+                        <th>Memory</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="process-table">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
